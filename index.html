@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Instagram Reel Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <style>
+        
+        .container {
+            max-width: 348px;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 100;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            margin-right: 16px;
+            cursor: pointer;
+            color: #262626;
+            padding: 4px;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: 16px;
+        }
+
+        .reel-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .video-thumbnail {
+            width: 70px;
+            height: 124px;
+            background-color: #000;
+            border-radius: 9px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .reel-info {
+            text-align: center;
+        }
+
+        .reel-description {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .reel-meta {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+
+        .reel-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #8e8e8e;
+        }
+
+        .metrics-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            margin-bottom: 12px;
+        }
+
+        .section-info {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .metric-card {
+            background-color: white;
+            padding: 12px;
+            
+           
+        }
+
+        .metric-value-large {
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .metric-subtitle {
+            font-size: 12px;
+            color: #8e8e8e;
+            margin-bottom: 12px;
+        }
+
+        .percentage-bar {
+            height: 4px;
+            background-color: #efefef;
+            border-radius: 2px;
+            margin-bottom: 6px;
+            overflow: hidden;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            background-color: #0095f6;
+        }
+
+       .percentage-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #8e8e8e;
+        }
+
+        .dot {
+            font-size: 10px;
+            margin-right: 2px;
+        }
+
+        .label-text {
+            margin-left: 2px;
+        }
+
+        .followers-dot {
+            color: #e338c1;
+        }
+
+        .nonfollowers-dot {
+            color: #0095f6;
+        }
+
+        .sources-list {
+            margin-top: 12px;
+        }
+
+        .source-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .source-item:last-child {
+            border-bottom: none;
+        }
+
+        .source-name {
+            font-size: 14px;
+        }
+
+        .source-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .interactions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .interaction-metric {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .interaction-value {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .interaction-label {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+
+        .accounts-list {
+            margin-top: 12px;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .account-item:last-child {
+            border-bottom: none;
+        }
+
+        .account-name {
+            font-size: 12px;
+        }
+
+        .account-value {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .overview-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .overview-metric {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .overview-value {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .overview-label {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+
+        .donut-chart {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#0095f6 0% 100%, #efefef 100% 100%);
+            margin: 0 auto 12px auto;
+            position: relative;
+        }
+
+        .donut-center {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            border-radius: 50%;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 22px 0;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-name {
+            font-size: 14px;
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .divider {
+            height: 6px;
+            background-color: #f2f2f2cc;
+            width: 100%;
+        }
+
+        .divider2 {
+            height: 2px;
+            background-color: #f2f2f2cc;
+            width: 100%;
+        }
+        .divider3 {
+            height: 2px;
+            margin-top: 12px;
+            background-color: #f2f2f2cc;
+            width: 100%;
+        }
+
+        .reel-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .stat-icon {
+            width: 17px;
+            height: 22px;
+            margin-bottom: 4px;
+        }
+
+        .stat-icon2 {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: gray;
+        }
+        .audience-tab {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid #dcdcdc;
+            background-color: white;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .selected-tab {
+            background-color: #f2f2f2;
+            font-weight: 500;
+            height: 35px;
+        }
+
+        /* Retention styles (responsive & matches Instagram look) */
+        
+ *{box-sizing:border-box;margin:0;padding:0;font-family:'Roboto',Arial,sans-serif}
+    body{background:#fafafa;color:#262626;padding-bottom:20px}
+    .container{max-width:348px;margin:0 auto;background:#fff}
+
+    .header{display:flex;align-items:center;padding:16px;border-bottom:1px solid #dbdbdb;position:sticky;top:0;background:#fff;z-index:100}
+    .back-button{background:none;border:none;font-size:20px;margin-right:16px;cursor:pointer;color:#262626;padding:4px}
+    .header h1{font-size:16px;font-weight:600}
+
+    
+    .divider{height:6px;background:#f2f2f2cc;width:100%}
+    .divider2{height:2px;background:#f2f2f2cc;width:100%}
+
+    .reel-preview-container{display:flex;flex-direction:column;align-items:center;margin-bottom:16px}
+    .video-thumbnail{width:70px;height:124px;background:#000;border-radius:9px;overflow:hidden;position:relative;margin-bottom:12px}
+    .video-thumbnail img{width:100%;height:100%;object-fit:cover}
+    .play-button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:20px;opacity:.95}
+
+    .metric-row{display:flex;justify-content:space-between;padding:16px 0}
+
+    /* -------------------- RETENTION SECTION ------------------------ */
+    .retention-section{background:#fff;}
+    .ret-title{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-weight:700;font-size:18px}
+
+    .ret-thumb-wrap{display:flex;justify-content:center;margin-bottom:8px}
+    .ret-thumb{width: 88px;
+    height: 142px;border-radius:12px;overflow:hidden;background:#000;position:relative}
+    .ret-thumb video{width:100%;height:100%;object-fit:cover}
+
+    .play-overlay{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;background:rgba(0,0,0,0.18)
+    }
+
+    .ret-graph-wrap{position:relative;width:100%;}
+
+    canvas.ret-canvas{
+         width: 100% !important;
+    height: 199px !important;
+      display:block;
+      border-radius:6px;
+      background:#fff;
+      margin-bottom:-2px;
+    }
+
+    /* ⭐ FIXED TOOLTIP (Instagram exact behavior) */
+    .ret-tooltip {
+    position: absolute;   /* FIXED → ABSOLUTE */
+    transform: translate(-50%, -120%);
+    background: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(0,0,0,.14);
+    font-size: 13px;
+    text-align: center;
+    display: none;
+    z-index: 9999;
+    pointer-events: none;
+    min-width: 64px;
+}
+
+
+    .ret-yaxis{
+      position:absolute;
+         
+    top: 4px;
+      height:170px;
+          right: 298px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      font-size:12px;
+      color:#999;
+      
+    }
+
+    .ret-x{
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      color:#999;
+     
+    padding-left: 0px;
+    }
+    .section,
+.metric-card,
+.retention-section {
+  width: 100%;
+  max-width: 100%;
+}
+.container * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.retention-instance{padding:16px;background:#fff}
+.ret-title{font-size:18px;font-weight:700;display:flex;gap:6px}
+.ret-thumb{width:70px;height:124px;margin:18px auto;position:relative}
+.ret-thumb video{width:100%;height: 124px;;border-radius:12px}
+.ret-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff}
+.ret-graph-wrap{position:relative;padding-left:22px}
+.ret-canvas{width:100%;height:190px}
+.ret-yaxis{position:absolute;left:0;top:6px;height:170px;display:flex;flex-direction:column;justify-content:space-between;font-size:12px;color:#999}
+.ret-x{display:flex;justify-content:space-between;font-size:12px;color:#999}
+.ret-tooltip{
+  position:absolute;
+  display:none;
+  background:#fff;
+  padding:6px 10px;
+  border-radius:8px;
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+  font-size:13px;
+  transform:translate(-50%,-120%);
+  pointer-events:none
+}
+
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Reel insights</h1>
+        </div>
+
+        <!-- Reel Preview Section -->
+        <div class="section">
+            <div class="reel-preview-container">
+                <div class="video-thumbnail">
+                    <img src="https://ik.imagekit.io/7f8frimwz/WhatsApp%20Image%202026-01-20%20at%2008.57.18.jpeg" alt="Reel thumbnail">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="reel-info">
+                    <div class="reel-description">Big spins. Crazy wins. Unreal reactions 🎰…</div>
+                    <div class="reel-meta"> 9 January · Duration 0:16 </div>
+                </div>
+            </div>
+
+           <div class="reel-stats">
+    <div class="stat-item">
+        <img src="https://www.svgrepo.com/show/535436/heart.svg" class="stat-icon" alt="likes">
+        <span class="stat-value">39</span>
+
+    </div>
+    <div class="stat-item">
+        <img src="https://www.svgrepo.com/show/522064/comment-1.svg" class="stat-icon" alt="comments">
+        <span class="stat-value">2</span>
+
+    </div>
+    <div class="stat-item">
+        <img src="https://www.svgrepo.com/show/458021/send.svg" class="stat-icon2" alt="shares">
+        <span class="stat-value">0</span>
+
+    </div>
+     <div class="stat-item">
+        <img src="https://www.svgrepo.com/show/381428/repeat.svg" class="stat-icon" alt="remixes">
+        <span class="stat-value">0</span>
+
+    </div>
+    <div class="stat-item">
+        <img src="https://www.svgrepo.com/show/485636/bookmark.svg" class="stat-icon2" alt="saves">
+        <span class="stat-value">1</span>
+
+    </div>
+
+</div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Overview Section -->
+        <div class="section">
+
+    <div class="section-title" style="font-weight: bold; font-size: 18px; margin-bottom: 8px;">
+        Overview
+        <img src="https://www.svgrepo.com/show/509138/info.svg"
+             alt="info"
+             style="width:14px; height:14px; margin-left:4px; margin-bottom:4px; vertical-align:middle; filter: drop-shadow(0 0 0.5px black);"/>
+    </div>
+    <div class="section-info"></div>
+
+    <div class="metric-row">
+        <span class="metric-name">Views</span>
+        <span class="metric-value">4,268</span>
+    </div>
+    <div class="metric-row">
+        <span class="metric-name">Watch time</span>
+        <span class="metric-value">9h 50m 34s</span>
+    </div>
+    <div class="metric-row">
+        <span class="metric-name">Interactions</span>
+        <span class="metric-value">42</span>
+    </div>
+    <div class="metric-row">
+        <span class="metric-name">Profile activity</span>
+        <span class="metric-value">1</span>
+    </div>
+</div>
+
+
+        <div class="divider"></div>
+
+        <!-- Views Section -->
+        <div class="section" style="font-family: Arial, sans-serif; color: #000;">
+    <div class="section-title" style="font-weight: bold; font-size: 18px; margin-bottom: 8px;">
+        Views
+        <img src="https://www.svgrepo.com/show/509138/info.svg"
+             alt="info"
+             style="width:14px; height:14px; margin-left:4px; margin-bottom:4px; vertical-align:middle; filter: drop-shadow(0 0 0.5px black);"/>
+    </div>
+
+    <div style="text-align: center; font-family: Arial, sans-serif; margin-top: 20px;">
+
+    <!-- Donut Chart -->
+    <div style="width: 210px; height: 210px; margin: auto; position: relative;">
+        <div style="width: 210px; height: 210px; border-radius: 50%; background: conic-gradient(#5a00f6 0% 98.7%, #e338c1 98.7% 100%);"></div>
+
+        <div style="position: absolute; top: 50%; left: 50%; width: 186px; height: 186px; background: white; border-radius: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="font-size: 1px; margin-bottom: -5px; color: #444;">Views</div>
+            <div style="font-size: 38px; font-weight: bold; color: #000; margin-bottom: 17px;">4,268</div>
+        </div>
+    </div>
+
+    <!-- Labels EXACT like your image -->
+    <div style="margin-top: 22px; font-size: 15px;">
+       <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span style="color: #e338c1; font-size: 18px;">●</span>
+                <span>Followers</span>
+            </div>
+            2.0%
+        </div>
+
+        <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span style="color: #5a00f6; font-size: 18px;">●</span>
+                <span> Non-followers</span>
+            </div>
+           98.0%
+        </div>
+    </div>
+
+</div>
+
+</div>
+<div class="divider2"></div>
+
+    <div class="section-title" style="margin-top: 16px; margin-left: 10px; font-weight: bold; font-size: 16px;">Top sources of views</div>
+    <div class="metric-card" style="margin-top: 8px;">
+        <div class="sources-list" style="font-size: 14px;">
+            <div class="source-item" style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span class="source-name">Profile</span>
+                <span class="source-value">7.3%</span>
+            </div>
+            <div class="source-item" style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span class="source-name">Reels tab</span>
+                <span class="source-value">74.3%</span>
+            </div>
+            <div class="source-item" style="display: flex; justify-content: space-between;">
+                <span class="source-name">Explore</span>
+                <span class="source-value">9.4%</span>
+            </div>
+        </div>
+    </div>
+<div class="divider3"></div>
+    <div class="section-title" style="    margin-top: 20px;
+    margin-left: 7px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    height: 44px;">
+    Accounts reached
+    <span style="float: right; font-weight: normal; font-size: 14px;     margin-right: 8px;">2,453</span>
+</div>
+    
+   <div class="divider"></div> 
+<!-- INSERTED RETENTION SECTION (Instagram-exact, responsive, centered video above graph) -->
+<div class="section">
+      <div class="retention-sectionw">
+
+        <div class="ret-title"  style="font-family: Arial, sans-serif; color: #000;">
+          Retention
+          <img src="https://www.svgrepo.com/show/509138/info.svg" width="16" style="
+    filter: drop-shadow(0 0 0.5px black);">
+        </div>
+
+        <div class="ret-thumb-wrap" style="padding-top: 18px; padding-bottom: 17px;">
+          <div class="ret-thumb">
+            <video id="retThumb" src="https://ik.imagekit.io/7f8frimwz/WhatsApp%20Video%202026-01-20%20at%2009.35.42.mp4" preload="metadata" muted></video>
+            <div id="retPlayOverlay" class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+        <div class="ret-graph-wrap" style="padding-left:20px;">
+          <div class="ret-yaxis">
+            <div>100%</div><div>50%</div><div style="    margin-left: 20px;
+    margin-bottom: -7px;">0</div>
+          </div>
+
+          <canvas id="retCanvas" class="ret-canvas" ></canvas>
+
+          <div id="retTip" class="ret-tooltip">0%<br><small>0:00</small></div>
+
+          <div class="ret-x">
+            <div id="retXLeft">0:00</div>
+            <div id="retXRight">0:55</div>
+          </div>
+        </div>
+ <!-- Skip rate section -->
+<div style="padding:16px 0; font-family: Arial, sans-serif; color:#000;">
+
+  <!-- Title -->
+  <div style="
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:18px;
+  ">
+    Skip rate
+  </div>
+
+  <!-- This reel skip rate -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:15px;
+    margin-bottom:22px;
+  ">
+    <span style="color:#262626;">
+      This reel’s skip rate
+    </span>
+    <span style="font-weight:500;">
+      67.7%
+    </span>
+  </div>
+
+  <!-- Typical skip rate -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:15px;
+  ">
+    <span style="color:#262626;">
+      Your typical skip rate
+    </span>
+    <span style="color:#8e8e8e;">
+      --
+    </span>
+  </div>
+
+</div>
+
+    </div>
+
+    
+<!-- END RETENTION INSERT -->
+
+</div>
+    
+<div class="divider2"></div>
+
+<!-- WATCH TIME SECTION (Same width as Top sources of views) -->
+<div class="" style="padding-top: 4px;">
+    <div class="metric-card">
+        <!-- Watch Time Title Row -->
+        <div style="display: flex; justify-content: space-between; align-items: center;  margin-bottom: 6px;">
+            <div style="font-size:15px;    height: 31px;">
+                Watch time
+                <!-- <img src="https://www.svgrepo.com/show/509138/info.svg"
+                     alt="info"
+                     style="width:14px; height:14px; margin-left:4px; vertical-align:middle; filter: drop-shadow(0 0 0.5px black);"/> -->
+            </div>
+            <div style="font-size:15px;">9h 50m 34s</div>
+        </div>
+        <!-- Average Watch Time -->
+        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 16px;margin-top: 14px;">
+            <div style="font-size:15px; ">Average watch time</div>
+            <div style="font-size:15px;">8 sec </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="divider2"></div>
+<br>
+
+        
+        <div style="font-size: 16px; font-weight: bold; margin-bottom: 12px;">
+            View rate past first 3 seconds
+        </div>
+
+       
+        <div style="display: flex; gap: 8px; margin-bottom: 14px;     margin-top: 18px;">
+            <button style="padding: 5px 12px; font-size: 13px; border: none; background-color: #f2f2f2; border-radius: 20px; font-weight: 500;">All</button>
+            <button style="padding: 5px 12px; font-size: 13px; border: 1px solid #dbdbdb; background-color: #fff; border-radius: 20px; font-weight: 500;     height: 33px;">Followers</button>
+            <button style="padding: 5px 12px; font-size: 13px; border: 1px solid #dbdbdb; background-color: #fff; border-radius: 20px; font-weight: 500;">Non-followers</button>
+        </div>
+
+      
+        <div style="height: 6px; background-color: #efefef; border-radius: 3px; overflow: hidden; margin-bottom: 10px; margin-top: 35px;">
+            <div style="width: 4.2%; height: 100%; background-color: #e338c1;"></div>
+        </div>
+
+      
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;    margin-top: 25px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #e338c1; font-size: 12px;">●</span>
+                <span>This reel</span>
+            </div>
+            <div style="font-weight: 500;">3.4%</div>
+
+        </div>
+         <br>
+    </div>
+</div> -->
+
+<!-- Interactions Section -->
+<div class="divider"></div>
+<div class="">
+  <div class="metric-card">
+    <div class="section-title" style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+      Interactions
+      <img src="https://www.svgrepo.com/show/509138/info.svg" alt="info"
+           style="width:14px; height:14px; margin-left:4px; filter: drop-shadow(0 0 0.5px black);"/>
+    </div>
+<div class="" style="font-family: Arial, sans-serif; color: #000;">
+    
+
+    <div style="text-align: center; font-family: Arial, sans-serif; margin-top: 20px;">
+
+    <!-- Donut Chart -->
+    <div style="width: 210px; height: 210px; margin: auto; position: relative;">
+        <div style="width: 210px; height: 210px; border-radius: 50%; background: conic-gradient(#5a00f6 0% 98.7%, #e338c1 98.7% 100%);"></div>
+
+        <div style="position: absolute; top: 50%; left: 50%; width: 186px; height: 186px; background: white; border-radius: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="font-size: 1px; margin-bottom: -5px; color: #444;">Views</div>
+            <div style="font-size: 38px; font-weight: bold; color: #000; margin-bottom: 17px;">2,453</div>
+        </div>
+    </div>
+
+    <!-- Labels EXACT like your image -->
+    <div style="margin-top: 22px; font-size: 15px;">
+       <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span style="color: #e338c1; font-size: 18px;">●</span>
+                <span>Followers</span>
+            </div>
+            1.3%
+        </div>
+
+        <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span style="color: #5a00f6; font-size: 18px;">●</span>
+                <span> Non-followers</span>
+            </div>
+           98.7%
+        </div>
+    </div>
+
+</div>
+</div>
+
+</div>
+
+    <!-- Interactions Count -->
+    
+ <div class="divider2"></div>
+ <div class="">
+ <div class="retention-instance" data-retention>
+
+  <div class="ret-title">
+    When people liked your reel 
+    
+  </div>
+
+  <div class="ret-thumb-wrap">
+    <div class="ret-thumb">
+      <video class="ret-video"
+        src="https://ik.imagekit.io/7f8frimwz/WhatsApp%20Video%202026-01-20%20at%2009.35.42.mp4"
+        preload="metadata"
+        muted></video>
+      <div class="ret-play">▶</div>
+    </div>
+  </div>
+
+  <div class="ret-graph-wrap">
+    <div class="ret-yaxis">
+      <div>50%</div>
+      <div>25%</div>
+      <div>0</div>
+    </div>
+
+    <canvas class="ret-canvas" style="height:190px"></canvas>
+    <div class="ret-tooltip"></div>
+
+    <div class="ret-x">
+      <span>0:00</span>
+      <span class="ret-duration">0:00</span>
+    </div>
+  </div>
+
+</div>
+
+
+    </div>
+ <div class="divider2"></div>
+    
+<!-- END RETENTION INSERT -->
+
+<div class="section">
+    <!-- Breakdown List -->
+    <div class="metric-row">
+      <span class="metric-name">Likes</span>
+      <span class="metric-value">39</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-name">Shares</span>
+      <span class="metric-value">0</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-name">Comments</span>
+      <span class="metric-value">2</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-name">Reposts</span>
+      <span class="metric-value">0</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-name">Saves</span>
+      <span class="metric-value">1</span>
+    </div>
+</div>
+<!-- <div class="divider2"></div>
+<div class="section">
+    
+
+    <div class="metric-row" style="padding-top:10px;">
+      <span class="metric-name">Accounts engaged</span>
+      <span class="metric-value">56</span>
+    </div>
+  </div> -->
+</div>
+
+
+<div class="divider"></div>
+<!-- Profile Activity Section -->
+
+<div class="">
+  <div class="metric-card">
+    <div class="section-title" style="font-weight: bold; font-size: 16px; display: flex; align-items: center;    padding-top: 20px;">
+      Profile activity
+      <img src="https://www.svgrepo.com/show/509138/info.svg" alt="info"
+           style="width:14px; height:14px; margin-left:4px; filter: drop-shadow(0 0 0.5px black);"/>
+    </div>
+    <div class="metric-row" style="padding-top: 10px;">
+      <span class="metric-name">Follows</span>
+      <span class="metric-value">3</span>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="section">
+  <div class="metric-card">
+    
+   <br>
+  </div>
+</div> -->
+<div class="divider"></div>
+<!-- Audience Section -->
+<div class="">
+  <div class="metric-card">
+    <div class="section-title" style="font-weight: bold; font-size: 16px; display: flex; align-items: center;    padding-top: 20px;">
+      Audience
+      <img src="https://www.svgrepo.com/show/509138/info.svg" alt="info"
+           style="width:14px; height:14px; margin-left:4px; filter: drop-shadow(0 0 0.5px black);"/>
+    </div>
+
+    <!-- Audience Filter Tabs -->
+    <div style="display: flex; gap: 8px; margin: 12px 0;">
+      <button class="audience-tab selected-tab" onclick="showTab('gender', event)">Gender</button>
+      <button class="audience-tab" onclick="showTab('country', event)">Country</button>
+      <button class="audience-tab" onclick="showTab('age', event)">Age</button>
+    </div>
+<br>
+
+    <!-- Gender Tab -->
+     <div id="gender" class="tab-content active" style="display:block;">
+     <div style="margin:12px 0;">
+    <div style="margin-bottom:4px; font-size: 12px;">Men</div>
+    <div style="display:flex; align-items:center;">
+      <div style="flex:1; background:#eee; height:7px; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px; margin-right:10px; position:relative;">
+        <div style="height:7px; width:97.4%; background:#e338c1; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px;"></div>
+      </div>
+      <span style="font-size: 12px;">97.4%</span>
+    </div>
+  </div>
+
+  <div style="margin:12px 0;">
+    <div style="margin-bottom:4px; font-size: 12px;">Women </div>
+    <div style="display:flex; align-items:center;">
+      <div style="flex:1; background:#eee; height:7px; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px; margin-right:10px; position:relative;">
+        <div style="height:7px; width:2.6%; background:#7508fa; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px;"></div>
+      </div>
+      <span style="font-size: 12px;">2.6%</span>
+    </div>
+  </div>
+    </div>
+    <!-- Country Tab -->
+ <!-- Country Tab -->
+<div id="country" class="tab-content" style="display:none; margin-top:16px; font-family:sans-serif;">
+
+  <!-- United States -->
+  <div style="margin:12px 0;">
+    <div style="margin-bottom:4px; font-size: 12px;">United states</div>
+    <div style="display:flex; align-items:center;">
+      <div style="flex:1; background:#eee; height:7px; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px; margin-right:10px; position:relative;">
+        <div style="height:7px; width:49.4%; background:#e338c1; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px;"></div>
+      </div>
+      <span style="font-size: 12px;">49.4%</span>
+    </div>
+  </div>
+
+  <!-- Australia -->
+  <div style="margin:12px 0;">
+    <div style="margin-bottom:4px; font-size: 12px;">Germany</div>
+    <div style="display:flex; align-items:center;">
+      <div style="flex:1; background:#eee; height:7px; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px; margin-right:10px; position:relative;">
+        <div style="height:7px; width:23.2%; background:#e338c1; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px;"></div>
+      </div>
+      <span style="font-size: 12px;">23.2%</span>
+    </div>
+  </div>
+
+  <!-- Azerbaijan -->
+  <div style="margin:12px 0;">
+    <div style="margin-bottom:4px; font-size: 12px;">United Kingdom</div>
+    <div style="display:flex; align-items:center;">
+      <div style="flex:1; background:#eee; height:7px; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px; margin-right:10px; position:relative;">
+        <div style="height:7px; width:12.9%; background:#e338c1; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px;"></div>
+      </div>
+      <span style="font-size: 12px;">12.9%</span>
+    </div>
+  </div>
+
+  <!-- India -->
+  <div style="margin:12px 0;">
+    <div style="margin-bottom:4px; font-size: 12px;">Australia</div>
+    <div style="display:flex; align-items:center;">
+      <div style="flex:1; background:#eee; height:7px; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px; margin-right:10px; position:relative;">
+        <div style="height:7px; width:4.7%; background:#e338c1; border-top-right-radius:5px; 
+            border-bottom-right-radius:5px;"></div>
+      </div>
+      <span style="font-size: 12px;">4.7%</span>
+    </div>
+  </div>
+
+</div>
+
+    <!-- Age Tab -->
+    <div id="age" class="tab-content" style="display:none; margin-top:16px;">
+      <p style="font-size:14px; color:#555;">Age distribution data will appear here.</p>
+    </div>
+ <br> 
+  </div>
+
+</div>
+
+<!-- Ad Section -->
+<div class="">
+  <div class="">
+    <div class="section-title" style="font-weight: bold; font-size: 16px;">Ad</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; cursor: pointer;">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/128/5405/5405826.png"
+         alt="zigzag arrow"
+         style="width:16px; height:16px;" />
+    <span style="font-size: 14px;">Boost this reel</span>
+  </div>
+  <i class="fas fa-chevron-right" style="font-size: 14px; color: gray;"></i>
+</div>
+
+    <br>
+
+  </div>
+
+</div>
+</div>
+    <script>
+      
+        // Back button functionality
+        document.querySelector('.back-button').addEventListener('click', function() {
+            alert('Navigating back to previous screen');
+        });
+
+         function showTab(tabId, event) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+              tab.style.display = 'none';
+            });
+
+            // Remove active tab styling
+            document.querySelectorAll('.audience-tab').forEach(btn => {
+              btn.classList.remove('selected-tab');
+            });
+
+            // Show clicked tab
+            document.getElementById(tabId).style.display = 'block';
+            event.target.classList.add('selected-tab');
+          }
+    </script>
+
+    <!-- Retention script (responsive, curved drop, exact Instagram look) -->
+   <script>
+(function(){
+  const canvas = document.getElementById("retCanvas");
+  const tip = document.getElementById("retTip");
+  const thumbVideo = document.getElementById("retThumb");
+  const playOverlay = document.getElementById("retPlayOverlay");
+  const xLeft = document.getElementById("retXLeft");
+  const xRight = document.getElementById("retXRight");
+
+  let duration = 18;
+
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const ctx = canvas.getContext("2d");
+
+  const A = { x: 0.00, y: 0.00 };   // Start at 100%
+const B = { x: 0.20, y: 0.60 };   // Slight early drop
+const C = { x: 0.55, y: 0.60 };   // Middle deep bend
+const D = { x: 1.00, y: 0.80 };   // End around ~20%
+
+
+  function nx(x){ return x * canvas.clientWidth; }
+  function ny(y){
+    let padTop=8, padBottom=24;
+    let ch = canvas.clientHeight - padTop - padBottom;
+    return padTop + y * ch;
+  }
+
+  function cubicPoint(t,P0,P1,P2,P3){
+    let mt=1-t;
+    return {
+      x: mt*mt*mt*P0.x + 3*mt*mt*t*P1.x + 3*mt*t*t*P2.x + t*t*t*P3.x,
+      y: mt*mt*mt*P0.y + 3*mt*mt*t*P1.y + 3*mt*t*t*P2.y + t*t*t*P3.y
+    };
+  }
+
+  function percentAtFraction(tf){
+    let p=cubicPoint(tf,A,B,C,D);
+    return Math.max(0,Math.min(100,Math.round((1-p.y)*100)));
+  }
+
+  function canvasPointAtFraction(tf){
+    let p=cubicPoint(tf,A,B,C,D);
+    return { x:nx(p.x), y:ny(p.y) };
+  }
+
+  function drawBase(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    let w=canvas.clientWidth;
+
+    ctx.strokeStyle="#efefef";
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(0,ny(0)); ctx.lineTo(w,ny(0));
+    ctx.moveTo(0,ny(0.5)); ctx.lineTo(w,ny(0.5));
+    ctx.moveTo(0,ny(1)); ctx.lineTo(w,ny(1));
+    ctx.stroke();
+
+    ctx.beginPath();
+    let st=240;
+    for(let i=0;i<=st;i++){
+      let t=i/st;
+      let p=cubicPoint(t,A,B,C,D);
+      let cx=nx(p.x), cy=ny(p.y);
+      if(i===0) ctx.moveTo(cx,cy); else ctx.lineTo(cx,cy);
+    }
+
+    ctx.lineWidth=4;
+    ctx.strokeStyle="#e338c1";
+    ctx.lineCap="round";
+    ctx.stroke();
+
+    ctx.lineWidth=3;
+    ctx.strokeStyle="#e338c1";
+    ctx.stroke();
+  }
+
+  function resizeCanvas(){
+    let r=canvas.getBoundingClientRect();
+    canvas.width=Math.floor(r.width*dpr);
+    canvas.height=Math.floor(r.height*dpr);
+    canvas.style.width=r.width+"px";
+    canvas.style.height=r.height+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawBase();
+  }
+
+  function formatTime(sec){
+    sec=Math.floor(sec);
+    let m=Math.floor(sec/60);
+    let s=sec%60;
+    return m+":"+(s<10?"0":"")+s;
+  }
+
+  /* ===================== UPDATE MARKER (FIXED) ===================== */
+  function updateMarker(currentTime){
+    let t=currentTime/duration;
+    t=Math.max(0,Math.min(1,t));
+
+    let pos=canvasPointAtFraction(t);
+    let rect=canvas.getBoundingClientRect();
+
+    /* ⭐ CORRECTED → FIXED tooltip positioning */
+    const wrap = canvas.parentElement;
+const wrapRect = wrap.getBoundingClientRect();
+
+tip.style.left = (pos.x) + "px";
+tip.style.top  = (pos.y) + "px";
+
+
+    tip.style.display="block";
+    tip.innerHTML = percentAtFraction(t) + "%<br><small>"+formatTime(currentTime)+"</small>";
+
+    drawBase();
+
+    ctx.beginPath();
+    ctx.strokeStyle="rgb(154, 160, 166)";
+    ctx.lineWidth=1;
+    ctx.moveTo(pos.x,ny(0));
+    ctx.lineTo(pos.x,ny(1));
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle="#e338c1";
+    ctx.arc(pos.x,pos.y,7,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle="#e338c1";
+    ctx.arc(pos.x,pos.y,3.5,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  /* -------- Pointer & Video Controls -------- */
+
+  let pointerDown=false;
+
+  canvas.addEventListener("pointerdown",e=>{
+    pointerDown=true;
+    let rect=canvas.getBoundingClientRect();
+    let x=(e.clientX-rect.left)/rect.width;
+    x=Math.max(0,Math.min(1,x));
+    thumbVideo.currentTime=x*duration;
+    updateMarker(thumbVideo.currentTime);
+  });
+
+  window.addEventListener("pointerup",()=>{
+    pointerDown=false;
+  });
+
+  canvas.addEventListener("pointermove",e=>{
+    let rect=canvas.getBoundingClientRect();
+    let x=(e.clientX-rect.left)/rect.width;
+    x=Math.max(0,Math.min(1,x));
+
+    let pos=canvasPointAtFraction(x);
+    tip.style.left=(rect.left+pos.x)+"px";
+    tip.style.top=(rect.top+pos.y)+"px";
+    tip.style.display="block";
+
+    let t=x*duration;
+    tip.innerHTML=percentAtFraction(x)+"%<br><small>"+formatTime(t)+"</small>";
+
+    // drawBase();
+    // ctx.beginPath();
+    // ctx.strokeStyle="#000";
+    // ctx.lineWidth=2;
+    // ctx.moveTo(pos.x,ny(0));
+    // ctx.lineTo(pos.x,ny(1));
+    // ctx.stroke();
+
+    // ctx.beginPath();
+    // ctx.fillStyle="rgba(50,50,50,0.9)";
+    // ctx.arc(pos.x,pos.y,7,0,Math.PI*2);
+    // ctx.fill();
+    // ctx.beginPath();
+    // ctx.fillStyle="#fff";
+    // ctx.arc(pos.x,pos.y,3.5,0,Math.PI*2);
+    // ctx.fill();
+
+    if(pointerDown){
+      thumbVideo.currentTime=t;
+    }
+  });
+
+  canvas.addEventListener("pointerleave",()=>{
+    if(thumbVideo.paused){
+      tip.style.display="none";
+      drawBase();
+    }
+  });
+
+  playOverlay.addEventListener("click",()=>{
+    if(thumbVideo.paused){
+      thumbVideo.play();
+      playOverlay.style.display="none";
+    }else{
+      thumbVideo.pause();
+      playOverlay.style.display="flex";
+    }
+  });
+
+  thumbVideo.addEventListener("click",()=>{
+    if(thumbVideo.paused){
+      thumbVideo.play();
+      playOverlay.style.display="none";
+    }else{
+      thumbVideo.pause();
+      playOverlay.style.display="flex";
+    }
+  });
+
+  thumbVideo.addEventListener("loadedmetadata",()=>{
+    duration=Math.round(thumbVideo.duration);
+    // xRight.textContent=formatTime(duration);
+    resizeCanvas();
+  });
+
+  thumbVideo.addEventListener("timeupdate",()=>{
+    updateMarker(thumbVideo.currentTime);
+  });
+
+  window.addEventListener("resize",resizeCanvas);
+  setTimeout(resizeCanvas,100);
+
+})();
+</script>
+<script>
+document.querySelectorAll(".retention-instance").forEach(initSecondRetention);
+
+function initSecondRetention(block){
+
+  /* ================= ELEMENTS ================= */
+  const canvas = block.querySelector(".ret-canvas");
+  const tip    = block.querySelector(".ret-tooltip");
+  const video  = block.querySelector(".ret-video");
+  const play   = block.querySelector(".ret-play");
+  const durTxt = block.querySelector(".ret-duration");
+  const ctx    = canvas.getContext("2d");
+
+  const dpr = window.devicePixelRatio || 1;
+
+  /* ================= RETENTION DATA =================
+     One value per second (Instagram style)
+  */
+ const retention = [
+   100, 20, 65, 40, 70, 48, 71, 46, 75, 39, 68, 40, 12, 40, 30
+];
+
+// const likeData = [
+//   20, 17, 9, 11, 13, 8, 11, 6, 10, 9, 8, 10, 12, 9, 11
+// ];
+// length = video duration in seconds + 1
+
+  const TOTAL_POINTS = retention.length - 1;
+
+  /* ================= PADDING ================= */
+  const PAD_LEFT = 0;
+  const PAD_RIGHT = 0;
+  const PAD_TOP = 10;
+  const PAD_BOTTOM = 28;
+
+  /* ================= HELPERS ================= */
+  function resize(){
+    const r = canvas.getBoundingClientRect();
+    canvas.width  = r.width * dpr;
+    canvas.height = r.height * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawBase();
+  }
+
+  function yFromPercent(p){
+    const h = canvas.clientHeight - PAD_TOP - PAD_BOTTOM;
+    return PAD_TOP + (1 - p/100) * h;
+  }
+
+  function xFromIndex(i){
+    const usable = canvas.clientWidth - PAD_LEFT - PAD_RIGHT;
+    return PAD_LEFT + (i / TOTAL_POINTS) * usable;
+  }
+
+  function formatTime(s){
+    return "0:" + (s < 10 ? "0" : "") + s;
+  }
+
+  /* ================= BASE DRAW ================= */
+  function drawBase(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    /* grid */
+    ctx.strokeStyle = "#efefef";
+    ctx.lineWidth = 1;
+    [100,50,0].forEach(v=>{
+      const y = yFromPercent(v);
+      ctx.beginPath();
+      ctx.moveTo(PAD_LEFT,y);
+      ctx.lineTo(canvas.clientWidth - PAD_RIGHT,y);
+      ctx.stroke();
+    });
+
+    /* curve */
+    ctx.beginPath();
+    retention.forEach((v,i)=>{
+      const x = xFromIndex(i);
+      const y = yFromPercent(v);
+      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    });
+
+    ctx.strokeStyle = "#e338c1";
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+  }
+
+  /* ================= MARKER ================= */
+  function updateAtIndex(i){
+    i = Math.max(0, Math.min(TOTAL_POINTS, i));
+
+    drawBase();
+
+    const x = xFromIndex(i);
+    const y = yFromPercent(retention[i]);
+
+    /* vertical timing bar */
+    ctx.strokeStyle = "rgba(0,0,0,0.25)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, yFromPercent(0));
+    ctx.lineTo(x, yFromPercent(100));
+    ctx.stroke();
+
+    /* marker */
+    ctx.beginPath();
+    ctx.arc(x,y,7,0,Math.PI*2);
+    ctx.fillStyle = "#e338c1";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(x,y,3.5,0,Math.PI*2);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+
+    /* tooltip */
+    tip.style.left = x + "px";
+    tip.style.top  = y + "px";
+    tip.innerHTML =
+      retention[i] + "%<br><small>" + formatTime(i) + "</small>";
+    tip.style.display = "block";
+  }
+
+  /* ================= INTERACTION ================= */
+  canvas.addEventListener("pointermove", e=>{
+    const r = canvas.getBoundingClientRect();
+    const idx = Math.round(
+      ((e.clientX - r.left) / r.width) * TOTAL_POINTS
+    );
+    updateAtIndex(idx);
+  });
+
+  canvas.addEventListener("pointerleave", ()=>{
+    tip.style.display = "none";
+    drawBase();
+  });
+
+  /* ================= VIDEO SYNC ================= */
+  video.addEventListener("timeupdate", ()=>{
+    updateAtIndex(Math.round(video.currentTime));
+  });
+
+  play.onclick = ()=>{
+    if(video.paused){
+      video.play();
+      play.style.display = "none";
+    }else{
+      video.pause();
+      play.style.display = "flex";
+    }
+  };
+
+  video.onloadedmetadata = ()=>{
+    durTxt.textContent = formatTime(TOTAL_POINTS);
+    resize();
+  };
+
+  window.addEventListener("resize", resize);
+  resize();
+}
+</script>
+
+
+
+
+</body>
+</html>
